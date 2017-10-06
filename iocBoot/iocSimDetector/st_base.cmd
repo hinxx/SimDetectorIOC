@@ -47,8 +47,8 @@ simDetectorConfig("$(PORT)", $(XSIZE), $(YSIZE), 1, 0, 0)
 dbLoadRecords("$(ADSIMDETECTOR)/db/simDetector.template","P=$(PREFIX),R=cam1:,PORT=$(PORT),ADDR=0,TIMEOUT=1")
 
 # Create a second simDetector driver
-simDetectorConfig("SIM2", 300, 200, 1, 50, 50000000)
-dbLoadRecords("$(ADSIMDETECTOR)/db/simDetector.template","P=$(PREFIX),R=cam2:,PORT=SIM2,ADDR=0,TIMEOUT=1")
+#simDetectorConfig("SIM2", 300, 200, 1, 50, 50000000)
+#dbLoadRecords("$(ADSIMDETECTOR)/db/simDetector.template","P=$(PREFIX),R=cam2:,PORT=SIM2,ADDR=0,TIMEOUT=1")
 
 # Load an NDFile database.  This is not supported for the simDetector which does not write files.
 #dbLoadRecords("NDFile.template","P=$(PREFIX),R=cam1:,PORT=SIM1,ADDR=0,TIMEOUT=1")
@@ -66,13 +66,15 @@ dbLoadRecords("NDStdArrays.template", "P=$(PREFIX),R=image1:,PORT=Image1,ADDR=0,
 # This waveform allows transporting 64-bit float images
 #dbLoadRecords("NDStdArrays.template", "P=$(PREFIX),R=image1:,PORT=Image1,ADDR=0,TIMEOUT=1,NDARRAY_PORT=$(PORT),TYPE=Float64,FTVL=DOUBLE,NELEMENTS=12000000")
 # This waveform allows transporting 64-bit images, so it can handle any detector data type at the expense of more memory and bandwidth
-dbLoadRecords("NDStdArrays.template", "P=$(PREFIX),R=image2:,PORT=Image2,ADDR=0,TIMEOUT=1,NDARRAY_PORT=SIM2,TYPE=Float64,FTVL=DOUBLE,NELEMENTS=12000000")
+#dbLoadRecords("NDStdArrays.template", "P=$(PREFIX),R=image2:,PORT=Image2,ADDR=0,TIMEOUT=1,NDARRAY_PORT=SIM2,TYPE=Float64,FTVL=DOUBLE,NELEMENTS=12000000")
 
 # Create a standard arrays plugin, set it to get data from FFT plugin.
-NDStdArraysConfigure("Image2", 3, 0, "FFT1", 0)
+#NDStdArraysConfigure("Image2", 3, 0, "FFT1", 0)
 
 # Load all other plugins using commonPlugins.cmd
-< $(ADCORE)/iocBoot/commonPlugins.cmd
+#< $(ADCORE)/iocBoot/commonPlugins.cmd
+< $(TOP)/iocBoot/$(IOC)/commonPlugins.cmd
+
 set_requestfile_path("$(ADSIMDETECTOR)/simDetectorApp/Db")
 
 #asynSetTraceIOMask("$(PORT)",0,2)
